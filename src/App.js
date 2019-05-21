@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 
 import Header from './components/Header.js';
 import FilterButtons from './components/FilterButtons.js';
@@ -8,7 +7,6 @@ import Modal from './components/Modal.js';
 
 export default () => {
   const initState = localStorage.getItem('wanted_react_todo');
-  console.log(JSON.parse(initState));
 
   // state and dispatcher
   const [todos, todosDispatcher] = React.useState(initState === null ? [] : JSON.parse(initState));
