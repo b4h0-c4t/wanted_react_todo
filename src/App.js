@@ -12,6 +12,7 @@ export default () => {
   // state and dispatcher
   const [todos, todosDispatcher] = React.useState(initState === null ? [] : initState.todos);
   const [filter, filterDispatcher] = React.useState(null);
+  const [search_str, searchStrDispatcher] = React.useState("");
 
   // component actions
   const addTodo = (todo) => todosDispatcher([...todos, todo]);
@@ -28,23 +29,17 @@ export default () => {
           is_finished: is_finished,
         }));
   const changeFilter = (value) => filterDispatcher(value);
-
-  // useful variables
-  const filtered_todos = filter === null
-    ? todos
-    : todos.filter(
-      (todo) => todo.is_finished === filter);
-
+  const changeSearchStr = (str) => searchStrDispatcher(str);
 
   React.useEffect(() => {
-    console.log(todos);
-  }, [todos]);
+    console.log(search_str);
+  }, [search_str]);
 
   return (
     <div className="app">
-      <Header />
+      <Header actions={ {changeSearchStr} } />
       <FilterButtons actions={ {changeFilter} } />
-      <Cards todos={filtered_todos} actions={ {removeTodo, changeFinished} } />
+      <Cards state={ {todos, filter, search_str} } actions={ {removeTodo, changeFinished} } />
       <Modal actions={ {addTodo} } />
     </div>
   );

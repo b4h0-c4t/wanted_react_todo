@@ -71,7 +71,10 @@ const styles = theme => ({
 });
 
 function SearchAppBar(props) {
-  const { classes } = props;
+  const { classes, actions } = props;
+
+  const inputSearchStr = (e) => actions.changeSearchStr(e.target.value);
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -93,6 +96,7 @@ function SearchAppBar(props) {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              onChange={inputSearchStr}
             />
           </div>
         </Toolbar>

@@ -34,12 +34,14 @@ const styles = {
 };
 
 function SimpleCard(props) {
-  const { classes, actions, todo, index } = props;
+  const { classes, actions, state, todo, index } = props;
   const is_over = (new Date()).getTime() - todo.deadline.getTime() > 0;
 
   const deleteTodo = () => actions.removeTodo(index);
   const checkFinish = (e) => actions.changeFinished(e.target.checked, index);
 
+  if(state.filter !== null && state.filter !== todo.is_finished) return null;
+  if(todo.name.match(state.search_str) === null && todo.desc.match(state.search_str) === null) return null;
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -60,6 +62,7 @@ function SimpleCard(props) {
         <Checkbox
           color="primary"
           onClick={checkFinish}
+          checked={todo.is_finished}
         />
         <IconButton
           aria-label="Delete"
