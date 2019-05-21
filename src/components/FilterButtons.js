@@ -13,16 +13,30 @@ const styles = theme => ({
 });
 
 function ContainedButtons(props) {
-  const { classes } = props;
+  const { classes, actions } = props;
   return (
     <div>
-      <Button variant="contained" className={classes.button}>
+      <Button
+        variant="contained"
+        className={classes.button}
+        onClick={() => actions.changeFilter(null)}
+      >
         All
       </Button>
-      <Button variant="contained" color="primary" className={classes.button}>
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        onClick={() => actions.changeFilter(false)}
+      >
         In Progress
       </Button>
-      <Button variant="contained" color="secondary" className={classes.button}>
+      <Button
+        variant="contained"
+        color="secondary"
+        className={classes.button}
+        onClick={() => actions.changeFilter(true)}
+      >
         Finished
       </Button>
     </div>

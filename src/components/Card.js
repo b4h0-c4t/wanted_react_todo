@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Checkbox from '@material-ui/core/Checkbox';
+import DateFormat from 'dateformat';
 
 const styles = {
   card: {
@@ -26,30 +28,43 @@ const styles = {
   pos: {
     marginBottom: 12,
   },
+  over: {
+    color: "#ff4949"
+  }
 };
 
 function SimpleCard(props) {
-  const { classes } = props;
-  const bull = <span className={classes.bullet}>•</span>;
+  const { classes, actions, todo, index } = props;
+  const is_over = (new Date()).getTime() - todo.deadline.getTime() > 0;
+
+  const deleteTodo = () => actions.removeTodo(index);
+  const checkFinish = (e) => actions.changeFinished(e.target.checked, index);
 
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          2019/05/21
+        <Typography className={`${classes.title} ${is_over ? classes.over : ""}`} color="textSecondary" gutterBottom>
+          { DateFormat(todo.deadline, "fullDate") }
         </Typography>
         <Typography variant="h6" component="h2">
-          Release Wantedly React ToDo.
+          { todo.name }
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          In Progress
+          { todo.is_finished ? 'Finished' : 'In Progress' }
         </Typography>
         <Typography component="p">
-          Description.
+          { todo.desc }
         </Typography>
       </CardContent>
       <CardActions>
-        <IconButton aria-label="Delete">
+        <Checkbox
+          color="primary"
+          onClick={checkFinish}
+        />
+        <IconButton
+          aria-label="Delete"
+          onClick={deleteTodo}
+        >
           <DeleteIcon />
         </IconButton>
       </CardActions>

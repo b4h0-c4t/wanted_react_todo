@@ -8,10 +8,6 @@ import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
 const modalStyle = {
   top: '50%',
   left: '50%',
@@ -49,18 +45,24 @@ const styles = theme => ({
 });
 
 function SimpleModal(props) {
-  const { classes } = props;
+  const { classes, actions } = props;
 
   const [open, openDispatcher] = React.useState(false);
   const [name, nameDispatcher] = React.useState("");
   const [desc, descDispatcher] = React.useState("");
   const [deadline, deadlineDispatcher] = React.useState(new Date());
 
-  const addTask = () => {
+  const changeValues = (dispatcher, value) => dispatcher(value);
 
+  const addTask = () => {
+    actions.addTodo({
+      name,
+      desc,
+      deadline: new Date(deadline),
+      is_finished: false,
+    });
     openDispatcher(false);
   };
-
 
   return (
     <div>
@@ -82,6 +84,7 @@ function SimpleModal(props) {
               InputLabelProps={{
                 shrink: true,
               }}
+              onChange={(e) => changeValues(nameDispatcher, e.target.value)}
             />
             <TextField
               id="desc"
@@ -91,6 +94,7 @@ function SimpleModal(props) {
               InputLabelProps={{
                 shrink: true,
               }}
+              onChange={(e) => changeValues(descDispatcher, e.target.value)}
             />
             <TextField
               id="deadline"
@@ -100,6 +104,7 @@ function SimpleModal(props) {
               InputLabelProps={{
                 shrink: true,
               }}
+              onChange={(e) => changeValues(deadlineDispatcher, e.target.value)}
             />
             <Button
               className={classes.button}
