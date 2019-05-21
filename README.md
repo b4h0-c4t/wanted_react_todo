@@ -1,4 +1,4 @@
-# Wanled React ToDo
+# Wanted React ToDo
 ## Usage
 ### Access in Chrome
 1. Open Google Chrome.
