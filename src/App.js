@@ -8,9 +8,10 @@ import Modal from './components/Modal.js';
 
 export default () => {
   const initState = localStorage.getItem('wanted_react_todo');
+  console.log(JSON.parse(initState));
 
   // state and dispatcher
-  const [todos, todosDispatcher] = React.useState(initState === null ? [] : initState.todos);
+  const [todos, todosDispatcher] = React.useState(initState === null ? [] : JSON.parse(initState));
   const [filter, filterDispatcher] = React.useState(null);
   const [search_str, searchStrDispatcher] = React.useState("");
 
@@ -32,8 +33,8 @@ export default () => {
   const changeSearchStr = (str) => searchStrDispatcher(str);
 
   React.useEffect(() => {
-    console.log(search_str);
-  }, [search_str]);
+    localStorage.setItem('wanted_react_todo', JSON.stringify(todos))
+  }, [todos]);
 
   return (
     <div className="app">

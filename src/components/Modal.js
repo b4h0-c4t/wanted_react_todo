@@ -50,7 +50,7 @@ function SimpleModal(props) {
   const [open, openDispatcher] = React.useState(false);
   const [name, nameDispatcher] = React.useState("");
   const [desc, descDispatcher] = React.useState("");
-  const [deadline, deadlineDispatcher] = React.useState(new Date());
+  const [deadline, deadlineDispatcher] = React.useState((new Date()).getTime());
 
   const changeValues = (dispatcher, value) => dispatcher(value);
 
@@ -58,7 +58,7 @@ function SimpleModal(props) {
     actions.addTodo({
       name,
       desc,
-      deadline: new Date(deadline),
+      deadline: (new Date(deadline)).getTime(),
       is_finished: false,
     });
     openDispatcher(false);

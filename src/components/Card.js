@@ -35,7 +35,7 @@ const styles = {
 
 function SimpleCard(props) {
   const { classes, actions, state, todo, index } = props;
-  const is_over = (new Date()).getTime() - todo.deadline.getTime() > 0;
+  const is_over = (new Date()).getTime() - todo.deadline > 0;
 
   const deleteTodo = () => actions.removeTodo(index);
   const checkFinish = (e) => actions.changeFinished(e.target.checked, index);
